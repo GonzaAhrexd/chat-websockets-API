@@ -21,8 +21,8 @@ io.on('connection', (socket) => {
     socket.on('message', (msg) => {
         console.log(msg)
         socket.broadcast.emit('message', {
-            body: msg,
-            from: socket.id.slice(6)
+            body: msg.body,
+            from: msg.from
         
         })
     })
