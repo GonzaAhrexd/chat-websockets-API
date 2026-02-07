@@ -3,6 +3,7 @@ import express from 'express';
 import http from 'http';
 import dotenv from 'dotenv' // Environment variable module
 import { Server as SocketServer } from 'socket.io' // Socket.IO for real-time communication
+import { chatRoutes } from './routes/chat.routes';
 // Configurations
 
 // Routes
@@ -17,19 +18,7 @@ const io = new SocketServer(server);
 
 io.on('connection', (socket) => {
     console.log('A user connected:', socket.id);
-
-    socket.on('message', (msg) => {
-        console.log(msg)
-        socket.broadcast.emit('message', {
-            body: msg.body,
-            from: msg.from
-        
-        })
-    })
-    socket.on('disconnect', () => {
-        console.log('User disconnected:', socket.id);
-    }
-    );
+    chatRoutes(socket);
 })
 
 
