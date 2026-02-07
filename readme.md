@@ -1,99 +1,64 @@
-For my Mysql (Prisma) template, visit [this instead](https://github.com/GonzaAhrexd/express-prisma-typescript-template)
+# Chat API - WebSocket Learning Project
 
-# TypeScript - Express - MongoDB API Template
+A simple real-time chat API built with **Node.js**, **Express**, and **Socket.IO**. This project was created as a learning exercise to understand how WebSockets work and how to implement real-time communication between clients.
 
-A minimal TypeScript + Express template for building REST APIs. This repository provides a small starter API (a simple "ping" resource) and common configurations for CORS, logging and MongoDB connection.
+## About
 
-## Features
+This API serves as the backend for a real-time chat application. It handles:
 
-- Small, focused TypeScript Express app
-- MongoDB integration via Mongoose (`MONGODB_URI` env)
-- CORS configuration and request logging (morgan)
-- Example `ping` endpoints (GET, POST, PUT, DELETE)
+- **Real-time messaging**: Messages are instantly broadcasted to all connected users
+- **Typing indicators**: Users can see when someone is typing
+- **Connection management**: Handles user connections and disconnections
 
-## Tech stack
+## Tech Stack
 
 - Node.js
+- Express 5
+- Socket.IO
 - TypeScript
-- Express
-- MongoDB (Mongoose)
-- nodemon (development)
 
-## Prerequisites
+## Installation
 
-- Node.js (v16+ recommended)
+### Prerequisites
+
+- [Node.js](https://nodejs.org/) (v18 or higher recommended)
 - npm or yarn
-- A running MongoDB instance or MongoDB Atlas connection string
 
-## Environment variables
+### Steps
 
-Create a `.env` file in the project root with the following variables (examples):
+1. Clone the repository:
+   ```bash
+   git clone <repository-url>
+   cd chat-api
+   ```
 
-```
-PORT=3000
-MONGODB_URI=mongodb://localhost:27017/mydatabase
-corsOrigin=http://localhost:4200
-```
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
 
-Note: the code reads `process.env.corsOrigin` (case-sensitive) for the allowed origin.
+3. Create a `.env` file based on `example.env`:
+   ```bash
+   cp example.env .env
+   ```
 
-## Install
+4. Configure your environment variables in `.env`:
+   ```env
+   PORT=3000
+   ```
 
-Install dependencies:
+5. Start the development server:
+   ```bash
+   npm run dev
+   ```
 
-```powershell
-npm install
-```
+The server will start on `http://localhost:3000` (or your configured port).
 
-## Run (development)
+## WebSocket Events
 
-Start the app in development mode:
+| Event     | Description                          |
+|-----------|--------------------------------------|
+| `message` | Send/receive chat messages           |
+| `typing`  | Notify when a user is typing         |
 
-```powershell
-npm run dev
-```
 
-The `dev` script uses `nodemon` to watch source files. If `nodemon` does not execute TypeScript directly in your environment, run using `ts-node` or adjust the script, for example:
-
-```powershell
-npx nodemon --exec "npx ts-node" src/index.ts
-```
-
-## Build and Run (production)
-
-Compile TypeScript and run the built code:
-
-```powershell
-npx tsc
-node dist/index.js
-```
-
-## API Endpoints
-
-Base path: `/api/ping`
-
-- GET `/api/ping` — Get the most recent ping message
-- POST `/api/ping` — Create a new ping. Payload: `{ "message": "..." }`
-- PUT `/api/ping` — Edit the most recent ping. Payload: `{ "message": "..." }`
-- DELETE `/api/ping` — Delete the most recent ping
-
-Example curl (create):
-
-```bash
-curl -X POST http://localhost:3000/api/ping \
-	-H "Content-Type: application/json" \
-	-d '{"message":"Hello from DnD spells API"}'
-```
-
-## Project structure
-
-- `src/index.ts` — App entry point
-- `src/configs/db.ts` — MongoDB connection helper
-- `src/configs/CorsOptions.ts` — CORS options
-- `src/controllers/` — Route controllers (e.g., `ping.controller.ts`)
-- `src/routes/` — Express routes (e.g., `ping.routes.ts`)
-- `src/models/` — Mongoose models (e.g., `ping.ts`)
-
-## Contributing
-
-Feel free to open issues or submit pull requests. Keep changes focused and add tests for new behavior.
